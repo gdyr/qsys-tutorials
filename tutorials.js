@@ -147,10 +147,8 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
                 url: 'https://crossorigin.me/'+tbl.Url,
                 headers: tbl.Headers
               }).then(function success(response) {
-                console.log(response);
                 tbl.EventHandler.call(null, orig_tbl, response.status, response.data);
               }, function error(response) {
-                console.log(response);
                 tbl.EventHandler.call(null, orig_tbl, response.status, response.data);
               })
             },
