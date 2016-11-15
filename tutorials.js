@@ -36,6 +36,24 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
 
     var timers = [];
 
+    var QSysEOLConstants = {
+      Any: 'ANY',
+      CrLf: 'CRLF',
+      CrLfStrict: 'CRLF_STRICT',
+      Lf: 'LF',
+      Null: 'NULL',
+      Custom: 'CUSTOM'
+    };
+
+    var QSysEventConstants = {
+      Connected: 'CONNECTED',
+      Reconnect: 'RECONNECT',
+      Data: 'DATA',
+      Closed: 'CLOSED',
+      Error: 'ERROR',
+      Timeout: 'TIMEOUT'
+    };
+
     return {
 
       reset: function() {
@@ -62,6 +80,32 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
             }
           }
         },
+
+        // TCP Sockets
+        TcpSocket: {
+          Events: QSysEventConstants,
+          EOL: QSysEOLConstants,
+          New: function() {
+            return {
+              Connect: function() {},
+              Disconnect: function() {},
+              Write: function() {},
+              Read: function() {},
+              ReadLine: function() {},
+              Search: function() {}
+            }
+          }
+        },
+
+        // Serial Ports
+        SerialPorts: [{
+          Open: function() {},
+          Close: function() {},
+          Write: function() {},
+          Read: function() {},
+          ReadLine: function() {},
+          Search: function() {}
+        }],
 
         // Constants
         ChannelGroup: { Index: 0 },
