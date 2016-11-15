@@ -1,0 +1,35 @@
+html, body {
+
+  margin: 0px;
+  height: 100%;
+
+  font-family: sans-serif;
+  font-size: 90%;
+
+}
+
+#syncbar {
+  width: 100%;
+  background-color: yellow;
+  padding: 5px;
+  padding-left: 15px;
+  cursor: pointer;
+}
+
+.boxheader {
+  display: inline-block;
+  width: 100%;
+  background-color: gray;
+  color: white;
+  font-weight: bold;
+  padding: 5px;
+}
+
+#output {
+  padding: 5px;
+  padding-left: 7px;
+  font-family: 'Cutive Mono', monospace;
+  white-space: pre;
+}
+
+.ace_editor { height: 80%; }

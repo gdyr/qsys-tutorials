@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Q-Sys Scripting Tutorials</title>
+
+    <!-- Angular -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    
+    <!-- Moonshine -->
+    <script src="moonshine/moonshine.min.js"></script>
+    <script src="moonshine/distillery.moonshine.js"></script>
+    <script src="moonshine/luac.moonshine.js"></script>
+
+    <!-- Ace -->
+    <script src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+    <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Cutive+Mono" rel="stylesheet">
+
+    <!-- Tutorials -->
+    <script src="tutorials.js"></script>
+    <link rel="stylesheet" href="tutorials.css" />
+
+  </head>
+  <body ng-app="qsys-scripting-tutorials"
+        ng-controller="ScriptingController">
+
+    <div id="syncbar" ng-if="!sync" ng-click="compile(script)">
+      Script has changed and is out of sync. Click to update script.
+    </div>
+
+    <div ng-model="script" ui-ace="{
+      mode: 'lua',
+      showPrintMargin: false,
+      theme: 'twilight',
+      advanced: {
+        tabSize: 2
+      }
+    }"></div>
+
+    <div>
+      <span class="boxheader">Debug Output</span>
+      <div id="output" ng-bind="stdout"></div>
+    </div>
+
+  </body>
+</html>

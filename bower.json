@@ -1,0 +1,25 @@
+{
+  "name": "QSys-PGM-Training",
+  "authors": [
+    "gmichael225 <gmichael225@gmail.com>"
+  ],
+  "description": "Q-Sys Lua Programming Tutorials",
+  "main": "index.html",
+  "keywords": [
+    "Lua"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-ui-ace": "bower"
+  }
+}
