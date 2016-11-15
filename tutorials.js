@@ -1,4 +1,4 @@
-angular.module('qsys-scripting-tutorials', ['ui.ace'])
+angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
 
   .service('Moonshine', function($rootScope, $window) {
 
@@ -32,20 +32,59 @@ angular.module('qsys-scripting-tutorials', ['ui.ace'])
 
   })
 
-  .controller('ScriptingController', function($scope, $timeout, Moonshine) {
+  .service('QSysAPI', function(uuid4) {
+
+    var timers = [];
+
+    return {
+
+      reset: function() {
+        for(var i in timers) {
+          clearInterval(timers[i]);
+        } timers = [];
+      },
+
+      api: {
+
+        Timer: {
+          New: function() {
+            var timerID = uuid4.generate();
+            return {
+              Start: function(self, interval) {
+                timers[timerID] = setInterval(function() {
+                  self.EventHandler.call();
+                }, interval*1000);
+              },
+              Stop: function(self) {
+                clearInterval(timers[timerID]);
+                delete timers[timerID];
+              }
+            }
+          }
+        }
+
+      }
+
+    };
+  })
+
+  .controller('ScriptingController', function($scope, $timeout, Moonshine, QSysAPI) {
 
     // Set up stdout
     $scope.stdout = '';
     Moonshine.init({
       stdout: function(msg) {
-        $scope.stdout += (msg + "\n");
-        console.log(msg, $scope.stdout);
-      }
+        $scope.$apply(function() {
+          $scope.stdout += (msg + "\n");
+        });
+      },
+      api: QSysAPI.api
     });
 
     // Compiler
     $scope.compile = function(src) {
       $scope.sync = true;
+      QSysAPI.reset();
       Moonshine.compile(src)
         .then(function(err, bytecode) {
           if(bytecode) {
