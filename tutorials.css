@@ -26,10 +26,8 @@ html, body {
 }
 
 #output {
-  padding: 5px;
   padding-left: 7px;
   font-family: 'Cutive Mono', monospace;
-  white-space: pre;
 }
 
 .ace_editor { height: 80%; }

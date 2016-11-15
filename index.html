@@ -42,7 +42,15 @@
 
     <div>
       <span class="boxheader">Debug Output</span>
-      <div id="output" ng-bind="stdout"></div>
+      <div id="output">
+        <pre ng-repeat="line in lines"
+             ng-bind="line.msg"
+             ng-style="{
+               'color': line.err ? 'red' : 'black',
+               'font-weight': line.err ? 'bold' : 'normal'
+             }">
+        </pre>
+      </div>
     </div>
 
   </body>
