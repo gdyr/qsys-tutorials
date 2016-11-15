@@ -234,10 +234,8 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
 
   .controller('ScriptingController', function($scope, $timeout, Moonshine, QSysAPI) {
 
-    // Set up API
-    var api = QSysAPI({
-      stderr: err
-    })
+    // Set up output
+    $scope.lines = [];
 
     function err(msg) {
       $timeout(function() {
@@ -255,8 +253,12 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
         });
     }
 
-    // Set up stdout
-    $scope.lines = [];
+    // Set up API
+    var api = QSysAPI({
+      stderr: err
+    })
+
+    // Init moonshine
     Moonshine.init({
       stdout: log,
       stderr: err,
