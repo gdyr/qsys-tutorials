@@ -149,6 +149,12 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
             Search: function() {}
           }],
 
+          // Email
+          Email: {
+            Send: function() {
+              err('Sending email is not permitted in tutorials.');
+            }
+          },
           // HTTP Client
           HttpClient: {
             Download: function(tbl) {
