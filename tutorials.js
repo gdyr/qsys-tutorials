@@ -109,7 +109,12 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
                 Write: function() {},
                 Read: function() {},
                 ReadLine: function() {},
-                Search: function() {}
+                Search: function() {},
+                ReadTimeout: 0,
+                WriteTimeout: 0,
+                ReconnectTimeout: 5,
+                IsConnected: false,
+                BufferLength: 0
               }
             }
           },
