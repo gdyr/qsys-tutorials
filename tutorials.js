@@ -114,6 +114,26 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
             }
           },
 
+          UdpSocket: {
+            New: function() {
+              return {
+                Open: function () {},
+                Close: function () {},
+                Send: function() {},
+                JoinMulticast: function() {}
+              }
+            }
+          },
+
+          TcpSocketServer: {
+            New: function() {
+              return {
+                Listen: function() {},
+                Close: function() {}
+              }
+            }
+          },
+
           // Serial Ports
           SerialPorts: [{
             Open: function() {},
