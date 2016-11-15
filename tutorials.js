@@ -122,8 +122,10 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
     $scope.stdout = '';
     Moonshine.init({
       stdout: function(msg) {
-        $scope.$apply(function() {
-          $scope.stdout += (msg + "\n");
+        $timeout(function() {
+          $scope.$apply(function() {
+            $scope.stdout += (msg + "\n");
+          });
         });
       },
       api: QSysAPI.api
