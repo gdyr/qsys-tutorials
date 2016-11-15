@@ -61,7 +61,11 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
               }
             }
           }
-        }
+        },
+
+        // Constants
+        ChannelGroup: { Index: 0 },
+        System: { IsEmulating: false }
 
       }
 
