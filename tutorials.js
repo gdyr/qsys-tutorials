@@ -64,6 +64,10 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
 
       api: {
 
+        // Controls
+        Controls: {},
+
+        // Timers
         Timer: {
           New: function() {
             var timerID = uuid4.generate();
@@ -79,6 +83,13 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
               }
             }
           }
+        },
+
+        // Logging
+        // TODO: Where should this go?
+        Log: {
+          Message: function(msg) { },
+          Error: function(msg) { }
         },
 
         // TCP Sockets
