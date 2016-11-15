@@ -155,6 +155,18 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
               err('Sending email is not permitted in tutorials.');
             }
           },
+
+          // Named Controls
+          NamedControl: {
+            SetString: function() {},
+            GetString: function() {},
+            SetValue: function() {},
+            GetValue: function() {},
+            SetPosition: function() {},
+            GetPosition: function() {},
+            Trigger: function() {},
+          },
+
           // HTTP Client
           HttpClient: {
             Download: function(tbl) {
@@ -192,6 +204,13 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
           Mixer: {
             New: function(name) {
               err('No mixer named \''+name+'\'');
+            }
+          },
+
+          // Components API
+          Component: {
+            New: function(name) {
+              err('Component \''+name+'\' does not exist');
             }
           },
 
