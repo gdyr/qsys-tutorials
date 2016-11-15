@@ -32,7 +32,7 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
 
   })
 
-  .service('QSysAPI', function(uuid4) {
+  .service('QSysAPI', function(uuid4, $http) {
 
     var timers = [];
 
@@ -106,6 +106,25 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
           ReadLine: function() {},
           Search: function() {}
         }],
+
+        // HTTP Client
+        HttpClient: {
+          Download: function(tbl) {
+            $http({
+              method: 'GET',
+              url: 'https://crossorigin.me/'+tbl.Url,
+              headers: tbl.Headers
+            }).then(function success(response) {
+              console.log(response);
+              tbl.EventHandler.call(null, response, response.status, response.data);
+            }, function error(response) {
+              console.error(response);
+            })
+          },
+          Upload: function() {
+            // TODO: Implement upload somehow
+          }
+        },
 
         // Constants
         ChannelGroup: { Index: 0 },
