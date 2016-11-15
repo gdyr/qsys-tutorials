@@ -13,6 +13,13 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
         }
         $rootScope.moonshine = new $window.shine.VM(conf.api);
         $window.shine.luac.init($rootScope.moonshine, 'moonshine/yueliang.lua.json');
+        if(conf.stderr) {
+          $window.addEventListener('error', function (e){
+            if (e.error instanceof shine.Error) {
+              conf.stderr(e.error.message);
+            }
+          });
+        }
       },
 
       compile: function(code) {
@@ -229,25 +236,30 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
 
     // Set up API
     var api = QSysAPI({
-      stderr: function(err) {
-        $timeout(function() {
-          $scope.$apply(function() {
-            $scope.lines.push({msg: err, err: true});
-          });
-        });
-      }
+      stderr: err
     })
 
-    // Set up stdout
-    $scope.lines = [];
-    Moonshine.init({
-      stdout: function(msg) {
-        $timeout(function() {
+    function err(msg) {
+      $timeout(function() {
+        $scope.$apply(function() {
+          $scope.lines.push({msg: msg, err: true});
+        });
+      });
+    }
+
+    function log(msg) {
+      $timeout(function() {
           $scope.$apply(function() {
             $scope.lines.push({msg: msg});
           });
         });
-      },
+    }
+
+    // Set up stdout
+    $scope.lines = [];
+    Moonshine.init({
+      stdout: log,
+      stderr: err,
       api: api.api
     });
 
@@ -256,10 +268,12 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
       $scope.sync = true;
       api.reset();
       Moonshine.compile(src)
-        .then(function(err, bytecode) {
+        .then(function(error, bytecode) {
           if(bytecode) {
             $scope.lines = [];
             Moonshine.run(bytecode);
+          } else {
+            err(error.split('\n')[0]);
           }
         });
     };
