@@ -279,7 +279,7 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
     };
 
     // Sample script
-    $scope.script = '';
+    $scope.script = '// Your lua goes here';
 
     // Script dirty watch
     $scope.sync = true;
