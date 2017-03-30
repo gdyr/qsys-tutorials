@@ -1,4 +1,12 @@
-angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
+angular.module('qsys.tutorials', ['ui.ace', 'uuid', 'qsys.devices'])
+
+  .service('VirtualNetwork', function(PJLinkProjector) {
+    return function() {
+      return {
+        '10.10.10.10:4352': PJLinkProjector()
+      };
+    };
+  })
 
   .service('Moonshine', function($rootScope, $window) {
 
@@ -39,7 +47,7 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
 
   })
 
-  .service('QSysAPI', function(uuid4, $http) {
+  .service('QSysAPI', function(uuid4, $http, VirtualNetwork) {
 
     return function(config) {
 
@@ -66,6 +74,8 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
         Error: 'ERROR',
         Timeout: 'TIMEOUT'
       };
+
+      var network = VirtualNetwork();
 
       return {
 
@@ -111,7 +121,21 @@ angular.module('qsys-scripting-tutorials', ['ui.ace', 'uuid'])
             EOL: QSysEOLConstants,
             New: function() {
               return {
-                Connect: function() {},
+                Connect: function(sock, ip, port) {
+                  var device = network[ip+':'+port];
+                  if(device) {
+                    sock._connection = device;
+                    if(sock.EventHandler) {
+                      sock.EventHandler.call(null, sock, QSysEventConstants.Connected);
+                    }
+                  } else { // handle bad connections better
+                    setTimeout(function() {
+                      if(sock.EventHandler) {
+                        sock.EventHandler.call(null, sock, QSysEventConstants.Timeout);
+                      }
+                    }, 5000);
+                  }
+                },
                 Disconnect: function() {},
                 Write: function() {},
                 Read: function() {},
